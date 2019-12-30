@@ -2,7 +2,20 @@
 
 Vue2.X的倒数、倒计时组件 
 
-#安装
+Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-count-down/index.html)
+
+
+[![vue2](https://img.shields.io/badge/vue-2.x-brightgreen.svg)](https://vuejs.org/)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/liuwave/vue-count-down)
+[![npm](https://img.shields.io/npm/v/@liuwave/vue-count-down.svg)](https://www.npmjs.com/package/@liuwave/vue-count-down)
+[![npm](https://img.shields.io/npm/dm/@liuwave/vue-count-down.svg)](https://npmcharts.com/compare/@liuwave/vue-count-down)
+[![minified](https://badgen.net/bundlephobia/min/@liuwave/vue-count-down)](https://bundlephobia.com/result?p=@liuwave/vue-count-down)
+[![gzip](https://badgen.net/bundlephobia/minzip/@liuwave/vue-count-down)](https://bundlephobia.com/result?p=@liuwave/vue-count-down)
+
+
+
+
+# 安装
 
 1. Node.js安装
 
@@ -14,7 +27,7 @@ Vue2.X的倒数、倒计时组件
     ```html
     <!-- 需要先引入vue：<script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
     <!--引入vue-count-down -->
-        <script src="dist/vue-count-down.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@liuwave/vue-count-down"></script>
 
     ```
 
@@ -49,7 +62,7 @@ Vue2.X的倒数、倒计时组件
 
         ```html
         <!-- 需要先引入vue：<script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
-        <script src="/dist/vue-count-down.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@liuwave/vue-count-down"></script>
 
         <script>
         // 全局注册
@@ -61,7 +74,7 @@ Vue2.X的倒数、倒计时组件
 
         ```html
         <!-- 需要先引入vue：<script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
-        <script src="dist/vue-count-down.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@liuwave/vue-count-down"></script>
         
 
         
@@ -75,7 +88,7 @@ Vue2.X的倒数、倒计时组件
         </script>
         ```
        
-#用法
+# 用法
 
 1. 倒计时模式
 
@@ -177,3 +190,4 @@ Vue2.X的倒数、倒计时组件
         done
 ```
 
+##
