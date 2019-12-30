@@ -152,7 +152,8 @@ Vue2.X的倒数、倒计时组件
     
 > on-update 触发输出参数 
 >> timer模式：{day: "0", hour: "0", minute: "0", second: "10", restSecond: 10}
->> counter模式 ：{restCount}
+>
+>> counter模式 ：{restCount:0}
 >
 
 

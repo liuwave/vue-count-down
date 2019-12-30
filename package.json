@@ -3,7 +3,7 @@
   "description": "倒数、倒计时（Vue组件）",
   "repository": {
     "type": "git",
-    "url": "git@github.com:liuwave/vue2-count-down.git"
+    "url": "git@github.com:liuwave/vue-count-down.git"
   },
   "keywords": [
     "vue",
@@ -38,5 +38,5 @@
     "rollup-plugin-vue": "5.0.1",
     "vue-template-compiler": "^2.6.10"
   },
-  "version": "0.0.1"
+  "version": "0.0.2"
 }
