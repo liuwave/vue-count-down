@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo for vue-count-down</title>
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/prism/1.17.1/themes/prism.min.css">
+    <style>
+        #app{
+            max-width: 980px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body >
+<div id="app">
+    
+    <vue-markdown >
+    
+    
+    </vue-markdown>
+    <vue-markdown >
+# 倒计时模式
+``` html
+        &lt;count-down :count=&quot;2000&quot;&gt;&lt;/count-down&gt;
+    
+    
+        &lt;count-down  :count=&quot;3000&quot; &gt;
+        &lt;template v-slot=&quot;time&quot;&gt;
+        自定义slot: 剩余时间 {{time.day}}天{{time.hour}}小时{{time.minute}}分{{time.second}}秒。。
+        总剩余秒数：{{&nbsp;time.restSecond}}
+    
+        &lt;/template&gt;
+        &lt;/count-down&gt;
+```
+    </vue-markdown>
+    <p>
+        <count-down  :count="2000" ></count-down>
+    </p>
+    <p>
+        <count-down  :count="3000" >
+            <template v-slot="time">
+                自定义slot: 剩余时间 {{time.day}}天{{time.hour}}小时{{time.minute}}分{{time.second}}秒。。 总剩余秒数：{{time.restSecond}}
+
+            </template>
+        </count-down>
+    </p>
+    <vue-markdown>
+## 倒计时模式 的属性
+
+| Property | Description                    |  type   | default |
+| -------- | ------------------------------ | :-----: | :-----: |
+| model    | 模式                            | String  |    timer    |
+| end-time | 结束时间                        | Number/String/Date  |    -    |
+| count    | 倒计时时间差（单位：秒）         | Number  |    0    |
+
+> end-time 可以为 时间戳 、时间字符串(2020-19-25) 或者 Date对象
+> end-time 和 count 同时存在时，以count为准
+    </vue-markdown>
+    
+    <vue-markdown >
+# 计数模式
+``` html
+        &lt;count-down  :count=&quot;5000&quot; :step=&quot;1&quot;  model=&quot;counter&quot;&gt;&lt;/count-down&gt;
+        
+        &lt;count-down  :count=&quot;3000&quot; :step=&quot;2&quot;  model=&quot;counter&quot;&gt;&lt;/count-down&gt;
+    
+        &lt;count-down  :count=&quot;55&quot; :step=&quot;1&quot;  model=&quot;counter&quot;&gt;
+        &lt;template v-slot:counter=&quot;counter&quot;&gt;
+        自定义slot： 还剩余{{counter.restCount}}
+        &lt;/template&gt;
+        &lt;/count-down&gt;
+```
+</vue-markdown>
+    <p>
+        <count-down  :count="5000" :step="1"  model="counter"></count-down>
+        
+    
+    </p>
+    <p>
+        <count-down  :count="3000" :step="2"  model="counter"></count-down>
+    </p>
+    <p>
+        <count-down  :count="55" :step="1"  model="counter">
+            <template v-slot:counter="counter">
+                自定义slot： 还剩余{{counter.restCount}}
+            </template>
+        </count-down>
+    </p>
+    <vue-markdown>
+##  计数模式 的属性
+
+| Property      | Description                    |  type   | default |
+| ------------- | ------------------------------ | :-----: | :-----: |
+| model         | 模式                           | String  |    timer    |
+| step          | 计数间隔 （单位：秒）             | Number  |    1    |
+| count         | 计数数量         | Number  |    0    |
+
+
+> model 为 counter
+    </vue-markdown>
+    
+<vue-markdown>
+# 事件
+    
+|  Name | Description                                          |
+| :-----------: | ---------------------------------------------------- |
+|    on-ended   | 倒计时结束回调                                       |
+| on-update  | 每次倒计时回调                                       |
+    
+ ``` html
+    &lt;count-down  :count=&quot;10&quot; @ended=&quot;ended&quot; @update=&quot;update&quot;&gt;&lt;/count-down&gt;
+```
+``` javascript
+    methods: {
+        ended () {
+        console.log('done')
+        },
+        update (data) {
+        console.log('update', data)
+        }
+    }
+```
+```
+    输出：
+    update {day: "0", hour: "0", minute: "0", second: "10", restSecond: 10}
+    ....
+    done
+```
+
+</vue-markdown>
+    <p>
+        <count-down  :count="10" @ended="ended" @update="update"></count-down>
+        
+    </p>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-markdown/dist/vue-markdown.min.js"></script>
+<script src="https://cdn.staticfile.org/prism/1.17.1/prism.min.js"></script>
+ <script src="../dist/vue-count-down.min.js"></script>
+
+<script>
+    // 全局注册
+    // Vue.use(vueCountDown, { component: 'count-down' })
+    // 或：
+    // Vue.component('count-down', vueCountDown)
+
+    Vue.use(VueMarkdown);
+    new Vue({
+        components: {
+            // 局部注册
+            'count-down': vueCountDown,
+        },
+        el: '#app',
+        data () {
+            return {
+                timeLeft: 500,
+                
+                time:{
+                    day:'{{time.day}}',
+                    hour:'{{time.hour}}',
+                    minute:'{{time.minute}}',
+                    second:'{{time.second}}',
+                    restSecond:'{{time.restSecond}}',
+                },
+                counter:{
+                    restCount: '{{restCount}}'
+                }
+            }
+        },
+        methods: {
+            ended () {
+                console.log('done')
+            },
+            update (data) {
+                console.log('update', data)
+            }
+        }
+    })
+</script>
+</body>
+</html>
