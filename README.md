@@ -38,10 +38,10 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
 
         ```javascript
         import Vue from 'vue'
-        import vueCountDown from 'vue-count-down'
+        import vueCountDown from '@liuwave/vue-count-down'
 
         // 全局注册
-        Vue.use(vueCountDown, { component: 'count-down' }) // 组件名默认是：count-down
+        Vue.use(vueCountDown, { component: 'count-down' }) // 组件名默认是：vue-count-down
         // 或：Vue.component('count-down', vueCountDown)
         ```
     2. 局部注册
@@ -66,7 +66,7 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
 
         <script>
         // 全局注册
-        Vue.use(vueCountDown, { component: 'count-down' }) // 组件名默认是：count-down
+        Vue.use(vueCountDown, { component: 'count-down' }) // 组件名默认是：vue-count-down
         // 或：Vue.component('count-down', vueCountDown)
         </script>
         ```
