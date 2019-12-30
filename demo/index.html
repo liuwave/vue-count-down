@@ -44,7 +44,7 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
         &lt;count-down  :count=&quot;3000&quot; &gt;
         &lt;template v-slot=&quot;time&quot;&gt;
         自定义slot: 剩余时间 {{time.day}}天{{time.hour}}小时{{time.minute}}分{{time.second}}秒。。
-        总剩余秒数：{{&nbsp;time.restSecond}}
+        总剩余秒数：{{&nbsp;time.restCount}}
     
         &lt;/template&gt;
         &lt;/count-down&gt;
@@ -56,7 +56,7 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
     <p>
         <count-down  :count="3000" >
             <template v-slot="time">
-                自定义slot: 剩余时间 {{time.day}}天{{time.hour}}小时{{time.minute}}分{{time.second}}秒。。 总剩余秒数：{{time.restSecond}}
+                自定义slot: 剩余时间 {{time.day}}天{{time.hour}}小时{{time.minute}}分{{time.second}}秒。。 总剩余秒数：{{time.restCount}}
 
             </template>
         </count-down>
@@ -82,7 +82,7 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
         &lt;count-down  :count=&quot;3000&quot; :step=&quot;2&quot;  model=&quot;counter&quot;&gt;&lt;/count-down&gt;
     
         &lt;count-down  :count=&quot;55&quot; :step=&quot;1&quot;  model=&quot;counter&quot;&gt;
-        &lt;template v-slot:counter=&quot;counter&quot;&gt;
+        &lt;template v-slot=&quot;counter&quot;&gt;
         自定义slot： 还剩余{{counter.restCount}}
         &lt;/template&gt;
         &lt;/count-down&gt;
@@ -98,7 +98,7 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
     </p>
     <p>
         <count-down  :count="55" :step="1"  model="counter">
-            <template v-slot:counter="counter">
+            <template v-slot="counter">
                 自定义slot： 还剩余{{counter.restCount}}
             </template>
         </count-down>
@@ -121,8 +121,9 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
     
 |  Name | Description                                          |
 | :-----------: | ---------------------------------------------------- |
-|    on-ended   | 倒计时结束回调                                       |
-| on-update  | 每次倒计时回调                                       |
+|   v-on:ended   | 倒计时结束回调                                       |
+| v-on:update:count| 倒计时结束回调  同步父组件的绑定值： v-bind:count.sync="anyValueKey"                                    |
+| v-on:update  | 每次倒计时回调                                       |
     
  ``` html
     &lt;count-down  :count=&quot;10&quot; @ended=&quot;ended&quot; @update=&quot;update&quot;&gt;&lt;/count-down&gt;
@@ -141,7 +142,7 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
 ```
     输出：
   
-    update {day: "0", hour: "0", minute: "0", second: "10", restSecond: 10}
+    update {day: "0", hour: "0", minute: "0", second: "10", restCount: 10}
     ....
     done
 ```
@@ -157,7 +158,7 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-markdown/dist/vue-markdown.min.js"></script>
 <script src="https://cdn.staticfile.org/prism/1.17.1/prism.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/@liuwave/vue-count-down"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@liuwave/vue-count-down@0.1.0"></script>
 
 <script>
     // 全局注册
@@ -181,10 +182,10 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
                     hour:'{{time.hour}}',
                     minute:'{{time.minute}}',
                     second:'{{time.second}}',
-                    restSecond:'{{time.restSecond}}',
+                    restCount:'{{time.restCount}}',
                 },
                 counter:{
-                    restCount: '{{restCount}}'
+                    restCount: '{{counter.restCount}}'
                 }
             }
         },

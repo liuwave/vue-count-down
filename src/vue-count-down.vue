@@ -1,31 +1,33 @@
 <template>
   <span>
-    <slot v-if="model==='timer'" :day="time.d" :hour="time.h" :minute="time.i" :second="time.s"
-      :restSecond="time.rs">
-      <template v-if="time.rs>0">
-         {{time.d}}天{{time.h}}时{{time.i}}分{{time.s}}秒
+    <slot
+      :day="time.day"
+      :hour="time.hour"
+      :minute="time.minute"
+      :second="time.second"
+      :restCount="restCount" >
+      <template v-if="restCount>0">
+        <template v-if="model==='timer'">
+          {{time.day}}天{{time.hour}}时{{time.minute}}分{{time.second}}秒
+        </template>
+         <template v-else>{{restCount}}</template>
       </template>
-    </slot>
-    <slot name="counter" v-else :restCount="restCount">
-      <template v-if="restCount>0">{{restCount}}</template>
       <template v-else></template>
     </slot>
   </span>
 </template>
 <script>
   export default {
-    name: 'count-down',
     data() {
       return {
         endTimestamp: 0,				//活动结束时间
         timer: null,
         restCount: 0,
         time: {
-          d: 0,
-          h: 0,
-          i: 0,
-          s: 0,
-          rs: 0
+          day: 0,
+          hour: 0,
+          minute: 0,
+          second: 0,
         }
       }
     },
@@ -57,12 +59,7 @@
         immediate: true,
         handler(val) {
           if (val) {
-            this.endTimestamp = this.parseDate(this.endTime);
-            if (this.endTimestamp && this.model==='timer') {
-              this.triggerTimer();
-            } else {
-              this.clearTimer()
-            }
+            this.restart()
           }
         }
       },
@@ -70,10 +67,7 @@
         immediate: true,
         handler(val) {
           if (val > 0) {
-            this.endTimestamp = Date.now() + val * 1000;
-            this.restCount = val;
-            this.clearTimer();
-            this.triggerTimer();
+            this.restart(val)
           }
         }
       }
@@ -109,11 +103,12 @@
         let that = this;
         this.render();
         this.timer = setTimeout(() => {
-          let rest = that.model === 'timer' ? this.getRestTime() : this.restCount - 1;
+          let rest = that.model === 'timer' ? this.getRestTime() : --this.restCount;
           if (rest < 0) {
             that.$emit('ended');
+            //同步更新父组件的值，使用方法：v-bind:count.sync="anyValueKey"
+            that.$emit('update:count',0)
           } else {
-            this.restCount--;
             that.triggerTimer()
           }
         }, this.stepTime)
@@ -124,17 +119,16 @@
 
         if (this.model === 'timer') {
           let rest = this.getRestTime();
-          this.time.d = this.formatNumber(Math.floor(rest / 86400));
-          this.time.h = this.formatNumber(Math.floor((rest % 86400) / 3600));
-          this.time.i = this.formatNumber(Math.floor((rest % 3600) / 60));
-          this.time.s = this.formatNumber(Math.floor((rest % 60)));
-          this.time.rs = rest;
+          this.time.day = this.formatNumber(Math.floor(rest / 86400));
+          this.time.hour = this.formatNumber(Math.floor((rest % 86400) / 3600));
+          this.time.minute = this.formatNumber(Math.floor((rest % 3600) / 60));
+          this.time.second = this.formatNumber(Math.floor((rest % 60)));
+          this.restCount = rest;
           data = {
-            day: this.time.d,
-            hour: this.time.h,
-            minute: this.time.i,
-            second: this.time.s,
-            restSecond: rest,   // 剩余时间（秒）
+            day: this.time.day,
+            hour: this.time.hour,
+            minute: this.time.minute,
+            second: this.time.second,
           };
         } else {
           data = {
@@ -160,6 +154,32 @@
       getRestTime() {
         return Math.round((this.endTimestamp - Date.now()) / 1000);
       },
+      restart(count){
+
+        this.clearTimer();
+        if(this.model==='timer'){
+          if(count>0){
+            this.endTimestamp = Date.now() + count * 1000;
+            this.triggerTimer();
+          }else if(this.count>0){
+            this.endTimestamp = Date.now() + this.count * 1000;
+            this.triggerTimer();
+          }else if(this.endTime){
+            this.endTimestamp = this.parseDate(this.endTime);
+            if(this.endTimestamp){
+              this.triggerTimer();
+            }
+          }
+        }else{
+          if(count>0){
+            this.restCount = count;
+            this.triggerTimer();
+          }else if(this.count>0){
+            this.restCount = this.count;
+            this.triggerTimer();
+          }
+        }
+      }
     }
   }
 </script>

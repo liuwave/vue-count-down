@@ -1,6 +1,7 @@
 # vue-count-down
 
-Vue2.X的倒数、倒计时组件 
+Vue2.X的倒数、倒计时组件,无依赖项，轻量级，轻松实现倒计数、倒计时，可以通过设置
+
 
 Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-count-down/index.html)
 
@@ -122,7 +123,7 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
     
             <count-down  :count="3000" >
                 <template v-slot="time">
-                    自定义slot: 剩余时间 {{time.day}}天{{time.hour}}小时{{time.minute}}分{{time.second}}秒。。 总剩余秒数：{{time.restSecond}}
+                    自定义slot: 剩余时间 {{time.day}}天{{time.hour}}小时{{time.minute}}分{{time.second}}秒。。 总剩余秒数：{{time.restCount}}
     
                 </template>
             </count-down>
@@ -150,7 +151,7 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
     
         ```html
          <count-down  :count="55" :step="1"  model="counter">
-                    <template v-slot:counter="counter">
+                    <template v-slot="counter">
                         自定义slot： 还剩余{{counter.restCount}}
                     </template>
                 </count-down>
@@ -160,11 +161,12 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
 
 |  Name | Description                                          |
 | :-----------: | ---------------------------------------------------- |
-|    on-ended   | 倒计时结束回调                                       |
-| on-update  | 每次倒计时回调                                       |
+| v-on:ended   | 倒计时结束回调                                       |
+| v-on:update:count| 倒计时结束回调  同步父组件的绑定值： v-bind:count.sync="anyValueKey"                                    |
+| v-on:update  | 每次倒计时回调                                       |
     
 > on-update 触发输出参数 
->> timer模式：{day: "0", hour: "0", minute: "0", second: "10", restSecond: 10}
+>> timer模式：{day: "0", hour: "0", minute: "0", second: "10", restCount: 10}
 >
 >> counter模式 ：{restCount:0}
 >
@@ -185,9 +187,9 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
 ```
 ```
         输出：
-        update {day: "0", hour: "0", minute: "0", second: "10", restSecond: 10}
+        update {day: "0", hour: "0", minute: "0", second: "10", restCount: 10}
         ....
         done
 ```
 
-##
+# 
