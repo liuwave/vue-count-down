@@ -5,12 +5,10 @@
       :hour="time.hour"
       :minute="time.minute"
       :second="time.second"
-      :restCount="restCount" >
+      :restCount="restCount">
       <template v-if="restCount>0">
-        <template v-if="model==='timer'">
-          {{time.day}}天{{time.hour}}时{{time.minute}}分{{time.second}}秒
-        </template>
-         <template v-else>{{restCount}}</template>
+        <template v-if="model==='timer'">{{time.day}}天{{time.hour}}时{{time.minute}}分{{time.second}}秒</template>
+        <template v-else>{{restCount}}</template>
       </template>
       <template v-else></template>
     </slot>
@@ -107,7 +105,7 @@
           if (rest < 0) {
             that.$emit('ended');
             //同步更新父组件的值，使用方法：v-bind:count.sync="anyValueKey"
-            that.$emit('update:count',0)
+            that.$emit('update:count', 0)
           } else {
             that.triggerTimer()
           }
@@ -154,27 +152,27 @@
       getRestTime() {
         return Math.round((this.endTimestamp - Date.now()) / 1000);
       },
-      restart(count){
+      restart(count) {
 
         this.clearTimer();
-        if(this.model==='timer'){
-          if(count>0){
+        if (this.model === 'timer') {
+          if (count > 0) {
             this.endTimestamp = Date.now() + count * 1000;
             this.triggerTimer();
-          }else if(this.count>0){
+          } else if (this.count > 0) {
             this.endTimestamp = Date.now() + this.count * 1000;
             this.triggerTimer();
-          }else if(this.endTime){
+          } else if (this.endTime) {
             this.endTimestamp = this.parseDate(this.endTime);
-            if(this.endTimestamp){
+            if (this.endTimestamp) {
               this.triggerTimer();
             }
           }
-        }else{
-          if(count>0){
+        } else {
+          if (count > 0) {
             this.restCount = count;
             this.triggerTimer();
-          }else if(this.count>0){
+          } else if (this.count > 0) {
             this.restCount = this.count;
             this.triggerTimer();
           }
