@@ -106,7 +106,9 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
     </count-down>
     ```
     > model 默认为 timer 
+                                                                                                                                                                                                                >
     > end-time 可以为 时间戳 、时间字符串(2020-19-25) 或者 Date对象
+                                                                                                                                                                                                                >
     > end-time 和 count 同时存在时，以count为准
 
    1. 属性
