@@ -173,17 +173,33 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
 
 
 ``` html
-        <count-down  :count="10" @ended="ended" @update="update"></count-down>
+    <p>
+  设置的时间：{{timeLeft}}  <button v-if="timeLeft===0" @click="timeLeft=5;logList=[]">重设</button>
+</p>
+  <p>
+  倒计时：
+  <count-down  :count="10" @update="update" :count.sync="timeLeft" @ended="ended" >
+    <template v-slot="time">{{time.restCount}}秒</template>
+  </count-down>
+  </p>
+  
+    输出：
+    <ul>
+      <li v-for="item in logList">{{item}}</li>
+    </ul>
+
 ```
 ``` javascript
-        methods: {
-            ended () {
-            console.log('done')
-            },
-            update (data) {
-            console.log('update', data)
-            }
-        }
+         methods: {
+           ended () {
+             console.log('done');
+             this.logList.push('done');
+           },
+           update (data) {
+             console.log('update', data)
+             this.logList.push('update ,'+JSON.stringify(data));
+           }
+         }
 ```
 ```
         输出：
@@ -192,4 +208,19 @@ Demo:[http://git.oldmen.cn/vue-count-down/index.html](http://git.oldmen.cn/vue-c
         done
 ```
 
-# 
+# 方法
+
+#### restart(count)
+> 参数 {Number} count 重设倒计数，可选
+
+> 用法
+  
+```html
+    restart演示 ：
+    <count-down ref="countdown"  :count="10" >
+    <template v-slot="time">{{time.restCount}}</template>
+  </count-down>
+    <button  @click="$refs.countdown.restart()">重设</button>
+    <button  @click="$refs.countdown.restart(20)">重设为20</button>
+```
+
